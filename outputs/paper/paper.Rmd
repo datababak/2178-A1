@@ -1,5 +1,9 @@
 ---
+<<<<<<< HEAD
 title: "Top 10 safest Toronto neighborhoods (2014-2019)"
+=======
+title: "Top 10 safest neighborhoods in Toronto (2014-2019)"
+>>>>>>> af2d507cce68d40ed6811af143ed14506e6110aa
 subtitle: "Based on police reports for six major crimes"
 author: "Babak Mokri"
 thanks: "Code and data are available at: https://github.com/datababak/2178-A1"
@@ -18,6 +22,10 @@ knitr::opts_chunk$set(echo = TRUE)
 #install.packages("here")
 #install.packages("dplyr")
 #install.packages("ggplot2")
+<<<<<<< HEAD
+=======
+#install.packages("ggmap")
+>>>>>>> af2d507cce68d40ed6811af143ed14506e6110aa
 #install.packages("kableExtra")
 
 
@@ -26,6 +34,10 @@ library(tidyverse)
 library(ggplot2)
 library(here)
 library(dplyr)
+<<<<<<< HEAD
+=======
+library(ggmap)
+>>>>>>> af2d507cce68d40ed6811af143ed14506e6110aa
 library(kableExtra)
 library(DT)
 #?source()
@@ -38,6 +50,7 @@ Getting information about the neighborhoods in Toronto has always been a top con
 Although the conclusion is prone to initiate some biases, I am just providing information to grab your attention to the fact that what numbers are saying about the different crime rates in each Toronto neighborhood. I am not concerned with the reasons behind these numbers nor am I pointing to any specific ward. Nevertheless, the different densities considering each individual neighborhood area and its population may result in different subjective conclusions. Other demographic factors may also raise this subjectivity, prejudice and partiality. In this report I will also elaborate more on selecting different types of variables which initiates biases among people, leading to the same issues when they are chosen for the machine learning practices. 
 
 For this report, I used the Toronto Police Reports data from the Open Data Toronto Portal [@COT]. Further information and analyses are performed using R [@CitingR] and some related libraries including *Tidyverse* , *torontoopendata* [@OpenDT]. ggplot2 [@citingggplot2], #Latex#, ((download it in a reproducible way using the R package)) opendatatoronto (Gelfand 2020), and *boom*. This report was then compiled using *R markdown*. 
+<<<<<<< HEAD
 
 
 The last paragraph should set out the remainder of the paper.
@@ -47,6 +60,17 @@ The last paragraph should set out the remainder of the paper.
 2. Add a link to your GitHub repo via a footnote.
 3. Check that your GitHub repo is well-organized, and add an informative README. (Hint: Comment. Your. Code.). Make sure that you’ve got at least one R script in there, in addition, to your R Markdown file.
 
+=======
+
+
+The last paragraph should set out the remainder of the paper.
+
+# Babak
+1. Add an abstract. This should be three or four sentences. And then add a descriptive title (Hint: ‘Paper 1’ is not descriptive.)
+2. Add a link to your GitHub repo via a footnote.
+3. Check that your GitHub repo is well-organized, and add an informative README. (Hint: Comment. Your. Code.). Make sure that you’ve got at least one R script in there, in addition, to your R Markdown file.
+
+>>>>>>> af2d507cce68d40ed6811af143ed14506e6110aa
 
 # Data
 Toronto 
@@ -59,7 +83,23 @@ SO CITING R [@CitingR, page(10)]
 
 SO CITING R [@citingggplot2, page(11)]
 
+```{r}
+library(kableExtra)
+dt <- all_crimes_AVGs[-c(6:135),]
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  column_spec(1:2 , bold = T) %>%
+  row_spec(6:10, bold = T, color = "white", background = "#D7261E")
 
+```
+
+
+
+
+
+```{r bills, fig.cap="Bills of penguinshh", echo = FALSE}
+
+<<<<<<< HEAD
 ```{r graph1}
 
 #write.csv(dt, "inputs/dttttttt.csv")
@@ -97,6 +137,8 @@ kbl(dt) %>%
 
 ```{r bills, fig.cap="Bills of penguinshh", echo = FALSE}
 
+=======
+>>>>>>> af2d507cce68d40ed6811af143ed14506e6110aa
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(alpha = 0.8) +
   scale_fill_manual(values = c("darkorange","purple","cyan4"),
@@ -124,12 +166,21 @@ ggplot(penguins, aes(x = island, fill = species)) +
   coord_flip()
 ```
 
+<<<<<<< HEAD
 
 
 
 Talk way more about ittttttt. 
 
 
+=======
+
+
+
+Talk way more about ittttttt. 
+
+
+>>>>>>> af2d507cce68d40ed6811af143ed14506e6110aa
 \newpage
 
 # Appendixxxxx {-}
