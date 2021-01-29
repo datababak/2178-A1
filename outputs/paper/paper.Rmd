@@ -1,10 +1,10 @@
 ---
-title: "Robbery is grown by 12% more than other crimes drung 2014 to 2019 in toronto"
-subtitle: "this is compared to 5 other crimes"
+title: "Top 10 safest neighborhoods in Toronto (2014-2019)"
+subtitle: "Based on police reports for six major crimes"
 author: "Babak Mokri"
 thanks: "Code and data are available at: https://github.com/datababak/2178-A1"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: " Crime rates in different Toronto neighbourhoods could be as of the interests of anyone who is currently living or plan to move to Toronto. In this paper I have compared the 2014-2019 Crime Data by 140 Neighbourhood in Toronto for Assault, Auto Theft, Break and Enter, Robbery, Theft Over and Homicide. I also used the 2016 Census Population to demonstrate the five year averages and crime rates per 100,000 people. The results show that ..... is improving and ..... the .... neigbourhood is reporting the highest rate of ...... "
+abstract: " Crime rate statistics in Toronto neighbourhoods can be interesting for anyone who is currently living or planning to move to Toronto. In this paper I have compared six types of crime data including Assault, Auto Theft, Break & Enter, Robbery, Theft Over, and Homicide, by 140 neighbourhoods in Toronto during 2014 to 2019. To be more exact, I also used the 2016 Census Population to demonstrate the crime rates for 2019 per 100,000 people. *#The results show that ..... is improving and ..... the .... neigbourhood is reporting the highest rate of ......#* "
 output:
   bookdown::pdf_document2:
 toc: FALSE
@@ -13,17 +13,42 @@ bibliography: references.bib
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
+# install.packages("opendatatoronto")
+# install.packages("tidyverse")
+#install.packages("here")
+#install.packages("dplyr")
+#install.packages("ggplot2")
+#install.packages("ggmap")
+#install.packages("kableExtra")
+
+
 
 library(tidyverse)
-library(palmerpenguins)
+library(ggplot2)
+library(here)
+library(dplyr)
+library(ggmap)
+library(kableExtra)
+library(DT)
+#?source()
+#library(palmerpenguins)
 ```
 
 # Introduction
-Getting information about the neighborhoods in Toronto has always been a top concern for a newcomer parent like me, having two curious early teenagers who prefer not to stick at home with parents, but explore the neighborhood with their pals. Tough I personally like to let them find themselves on their own feet and leave it always open and welcoming to take my consultations for them, I should always take some provisions in background like choosing a safer environments for them to flourish. To this end, I have prepared this report to briefly compare the crime rates between different areas in Toronto and also check the trends to see how this rate is growing regardless of the reason behind this growth. At the end of this paper I found that
+Getting information about the neighborhoods in Toronto has always been a top concern for a newcomer parent like me, having two curious early teenagers who prefer not to stick at home with parents, but explore the neighborhood with their pals. Tough I personally like to let them find themselves on their own feet and I should always take some provisions on background like choosing a safer environments for them to flourish. This report briefly compares the crime rates between different areas in Toronto and also check their trends to see how crime rates hvae changed during past five years in Toronto neighborhoods. 
 
-Although the conclusion is prone to initiate some biases, we are just providing information for grab your attention to the fact that what numbers are saying about the different crime rates in each Toronto neighborhood. Nevertheless, the difference in the area and populations may have a direct influence on your own understanding for each neighborhood, where we are not providing any  conclusion to avoid any prejudice or partiality.
+Although the conclusion is prone to initiate some biases, I am just providing information to grab your attention to the fact that what numbers are saying about the different crime rates in each Toronto neighborhood. I am not concerned with the reasons behind these numbers nor am I pointing to any specific ward. Nevertheless, the different densities considering each individual neighborhood area and its population may result in different subjective conclusions. Other demographic factors may also raise this subjectivity, prejudice and partiality. In this report I will also elaborate more on selecting different types of variables which initiates biases among people, leading to the same issues when they are chosen for the machine learning practices. 
 
-For this report, I used data from opendatatoronto portal and further analysis are performed using turned it to desired information for conducted all analysis using R and its libraries including *Tidyverse*, #Latex#, ((download it in a reproducible way using the R package)) opendatatoronto (Gelfand 2020), and *boom*. This report was then compiled using *R markdown*. 
+For this report, I used the Toronto Police Reports data from the Open Data Toronto Portal [@COT]. Further information and analyses are performed using R [@CitingR] and some related libraries including *Tidyverse* , *torontoopendata* [@OpenDT]. ggplot2 [@citingggplot2], #Latex#, ((download it in a reproducible way using the R package)) opendatatoronto (Gelfand 2020), and *boom*. This report was then compiled using *R markdown*. 
+
+
+The last paragraph should set out the remainder of the paper.
+
+# Babak
+1. Add an abstract. This should be three or four sentences. And then add a descriptive title (Hint: ‘Paper 1’ is not descriptive.)
+2. Add a link to your GitHub repo via a footnote.
+3. Check that your GitHub repo is well-organized, and add an informative README. (Hint: Comment. Your. Code.). Make sure that you’ve got at least one R script in there, in addition, to your R Markdown file.
+
 
 # Data
 Toronto 
@@ -33,10 +58,25 @@ Our data is of penguins (Figure \@ref(fig:bills)).
 AND WE ARE USING RRRRR
 
 SO CITING R [@CitingR, page(10)]
+
 SO CITING R [@citingggplot2, page(11)]
 
+```{r}
+library(kableExtra)
+dt <- all_crimes_AVGs[-c(6:135),]
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  column_spec(1:2 , bold = T) %>%
+  row_spec(6:10, bold = T, color = "white", background = "#D7261E")
 
-```{r bills, fig.cap="Bills of penguins", echo = FALSE}
+```
+
+
+
+
+
+```{r bills, fig.cap="Bills of penguinshh", echo = FALSE}
+
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(alpha = 0.8) +
   scale_fill_manual(values = c("darkorange","purple","cyan4"),
@@ -46,13 +86,15 @@ ggplot(penguins, aes(x = island, fill = species)) +
   coord_flip()
 ```
 
-Talk more about it.
+\newpage
+
+Talk more about itjjjjjjjjj.
 
 Also bills and their average (Figure \@ref(fig:billssssss)). (Notice how you can change the height and width so they don't take the whole page?)
 
 ```{r billssssss, fig.cap="More bills of penguins", echo = FALSE, fig.width=8, fig.height=4}
 
-# This needs to be about the random data tha tI sasmpled?
+# This needs to be about the random data that I sasmpled?
 ggplot(penguins, aes(x = island, fill = species)) +
   geom_bar(alpha = 0.8) +
   scale_fill_manual(values = c("darkorange","purple","cyan4"),
@@ -62,44 +104,26 @@ ggplot(penguins, aes(x = island, fill = species)) +
   coord_flip()
 ```
 
-Talk way more about it. 
 
 
 
-# Model
+Talk way more about ittttttt. 
 
-\begin{equation}
-Pr(\theta | y) = \frac{Pr(y | \theta) Pr(\theta)}{Pr(y)}  (\#eq:bayes)
-\end{equation}
-
-Equation \@ref(eq:bayes) seems useful, eh?
-
-Here's a dumb example of how to use some references: In paper we run our analysis in `R` [@citeR]. We also use the `tidyverse` which was written by @thereferencecanbewhatever If we were interested in baseball data then @citeLahman could be useful. 
-
-
-# Results
-
-# Discussion
-
-## First discussion point
-
-If my paper were 10 pages, then should be be at least 2.5 pages. The discussion is a chance to show off what you know and what you learnt from all this. 
-
-## Second discussion point
-
-## Third discussion point
-
-## Weaknesses and next steps
-
-Weaknesses and next steps should also be included.
 
 \newpage
 
-# Appendix {-}
+# Appendixxxxx {-}
+00000
+
+
+ooooo
 
 \newpage
-
 
 # References
+
+
+
+
 
 

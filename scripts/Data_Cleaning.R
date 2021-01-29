@@ -17,21 +17,28 @@
 
 # install.packages("opendatatoronto")
 # install.packages("tidyverse")
+#install.packages("here")
+#install.packages("dplyr")
+#install.packages("ggplot2")
+#install.packages("ggmap")
+#install.packages("kableExtra")
+
 library(opendatatoronto)
 library(tidyverse)
+here::here()
 
 #### Get data ####
 
 # get package
-package <- show_package("fc4d95a6-591f-411f-af17-327e6c5d03c7") #*** Cite the code
+package <- show_package("fc4d95a6-591f-411f-af17-327e6c5d03c7")
 #package
 
 # get all resources for this package
-resources <- list_package_resources("fc4d95a6-591f-411f-af17-327e6c5d03c7") #*** Cite the code
+resources <- list_package_resources("fc4d95a6-591f-411f-af17-327e6c5d03c7")
 #resources
 
 # identify datastore resources; by default, Toronto Open Data sets datastore resource format to CSV for non-geospatial and GeoJSON for geospatial resources
-datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson')) #*** Cite the code
+datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
 #datastore_resources
 
 # load the first datastore resource as a sample
@@ -44,7 +51,7 @@ write.csv(datastore, "inputs/data/raw_data.csv")
 
 
 
-# Read in the raw data.                                       **************
+# Read in the raw data.     *** Doesn't work
 raw_data <- 
   readr::read_csv("inputs/data/raw_data.csv"
   )
@@ -57,17 +64,15 @@ names(raw_data)
 
 # reducing data to check environmental factors (Population, Area, and Shape/Length for each neighborhood
 env_data <- 
-  datastore %>%             #                              *****************
+  datastore %>%             #*** to be replaced by raw_data
   select(Neighbourhood, 
          Population,
          Shape__Area,
          Shape__Length)
 
-reduced_data
-
 #### choosing average crimes (e.g. Assault_AVG, ...) for each neighborhood
 raw_data_AVG <-
-  datastore %>%           #                              *****************
+  datastore %>%           #*** to be replaced by raw_data
   select(Neighbourhood,
          Assault_AVG,
          AutoTheft_AVG,
@@ -90,11 +95,11 @@ all_crimes_AVGs <-
   data.frame(raw_data_AVG$Neighbourhood, total_AVG_crimes)
 # Sorting the result
 all_crimes_AVGs <- 
-  all_crimes_AVGs[order(total_crimes),] 
+  all_crimes_AVGs[order(total_AVG_crimes),] 
 
 #### Cheking % Change in each crime from 2018-2019 for each neighborhood
 raw_data_CHG <-
-  datastore %>%           #                              *****************
+  datastore %>%           #*** to be replaced by raw_data
   select(Neighbourhood,
          Assault_CHG,
          AutoTheft_CHG,
@@ -106,7 +111,7 @@ raw_data_CHG <-
 
 #### Checking the rate of crimes for 2019 per 100,000 population in each neighborhood
 rate_2019 <-
-  datastore %>%           #                              *****************
+  datastore %>%           #*** to be replaced by raw_data
   select(Neighbourhood,
          Assault_Rate_2019,
          AutoTheft_Rate_2019,
@@ -133,76 +138,31 @@ all_crimes_Rate2019 <-
   all_crimes_Rate2019[order(total_Rate2019),] 
 
 
-
-
-
-
+#rm(raw_data)
 
 ###### EOF
 
+### Tables
+
+library(kableExtra)
+dt <- all_crimes_AVGs[-c(6:135),]
+kbl(dt) %>%
+  kable_paper("striped", full_width = F) %>%
+  column_spec(1:2 , bold = T) %>%
+  row_spec(6:10, bold = T, color = "white", background = "#D7261E")
 
 
-rm(raw_data)
+### Graphs
+library(sf)
+library(sp)
+library(rgdal)
+install.packages("CoordinateCleaner")
+library(CoordinateCleaner)
 
-#### What's next? ####
-
-####  from te Rohan's class #########################################
-
-
-### Get data ###
-all_data <- 
-  opendatatoronto::search_packages("NEIGHBOURHOOD CRIME RATES") %>%
-  opendatatoronto::list_package_resources() %>%
-  opendatatoronto::get_resource()
-
-### Save Data ###
-write.csv(all_data, "inputs/data/raw_data.csv")
-
-
-
-#babak
-if (data != all_data){
-  print('yes')
-} else {
-  print("no")
-}
+write.csv( data.frame(ID=datastore), "myshp.csv", row.names = FALSE )
+dd <- as.data.frame(st_coordinates(datastore))
+data.frame(ID = x$ID, st_coordinates(x))
 
 
 
-
-#### Preamble #### old
-# Purpose: Clean the survey data downloaded from [...UPDATE ME!!!!!]
-# Author: Rohan Alexander [CHANGE THIS TO YOUR NAME!!!!]
-# Data: 3 January 2021
-# Contact: rohan.alexander@utoronto.ca [PROBABLY CHANGE THIS ALSO!!!!]
-# License: MIT
-# Pre-requisites: 
-# - Need to have downloaded the ACS data and saved it to inputs/data
-# - Don't forget to gitignore it!
-# - Change these to yours
-# Any other information needed?
-
-
-#### Workspace setup ####
-# Use R Projects, not setwd().
-library(haven)
-library(tidyverse)
-# Read in the raw data. 
-raw_data <- readr::read_csv("inputs/data/raw_data.csv"
-)
-# Just keep some variables that may be of interest (change 
-# this depending on your interests)
-names(raw_data)
-
-reduced_data <- 
-  raw_data %>% 
-  select(first_col, 
-         second_col)
-rm(raw_data)
-
-
-#### What's next? ####
-
-
-'''
 
