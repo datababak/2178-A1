@@ -47,7 +47,7 @@ datastore <- filter(datastore_resources, row_number()==1) %>% get_resource() #**
 
 
 #### Save Data ####                                            *************
-write.csv(datastore, "inputs/data/raw_data.csv")
+write_csv(datastore, "inputs/data/raw_data.csv")
 
 
 
@@ -62,9 +62,9 @@ raw_data <-
 # Exploring the existing attribute names.
 names(raw_data)
 
-# reducing data to check environmental factors (Population, Area, and Shape/Length for each neighborhood
+### reducing data to check environmental factors (Population, Area, and Shape/Length for each neighborhood
 env_data <- 
-  datastore %>%             #*** to be replaced by raw_data
+  raw_data %>%             
   select(Neighbourhood, 
          Population,
          Shape__Area,
@@ -72,7 +72,7 @@ env_data <-
 
 #### choosing average crimes (e.g. Assault_AVG, ...) for each neighborhood
 raw_data_AVG <-
-  datastore %>%           #*** to be replaced by raw_data
+  raw_data %>%           
   select(Neighbourhood,
          Assault_AVG,
          AutoTheft_AVG,
@@ -99,7 +99,7 @@ all_crimes_AVGs <-
 
 #### Cheking % Change in each crime from 2018-2019 for each neighborhood
 raw_data_CHG <-
-  datastore %>%           #*** to be replaced by raw_data
+  raw_data %>%           
   select(Neighbourhood,
          Assault_CHG,
          AutoTheft_CHG,
@@ -111,7 +111,7 @@ raw_data_CHG <-
 
 #### Checking the rate of crimes for 2019 per 100,000 population in each neighborhood
 rate_2019 <-
-  datastore %>%           #*** to be replaced by raw_data
+  raw_data %>%           
   select(Neighbourhood,
          Assault_Rate_2019,
          AutoTheft_Rate_2019,
@@ -137,32 +137,9 @@ all_crimes_Rate2019 <-
 all_crimes_Rate2019 <- 
   all_crimes_Rate2019[order(total_Rate2019),] 
 
+write_csv(all_crimes_AVGs,"inputs/data/a3.csv")
 
-#rm(raw_data)
+
+rm(raw_data)
 
 ###### EOF
-
-### Tables
-
-library(kableExtra)
-dt <- all_crimes_AVGs[-c(6:135),]
-kbl(dt) %>%
-  kable_paper("striped", full_width = F) %>%
-  column_spec(1:2 , bold = T) %>%
-  row_spec(6:10, bold = T, color = "white", background = "#D7261E")
-
-
-### Graphs
-library(sf)
-library(sp)
-library(rgdal)
-install.packages("CoordinateCleaner")
-library(CoordinateCleaner)
-
-write.csv( data.frame(ID=datastore), "myshp.csv", row.names = FALSE )
-dd <- as.data.frame(st_coordinates(datastore))
-data.frame(ID = x$ID, st_coordinates(x))
-
-
-
-
