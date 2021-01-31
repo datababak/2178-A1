@@ -4,7 +4,7 @@ subtitle: "Based on police reports for six major crimes"
 author: "Babak Mokri"
 thanks: "Code and data are available at: https://github.com/datababak/2178-A1"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "Crime rate statistics in Toronto neighbourhoods can be interesting for anyone who is currently living or planning to move to Toronto. In this paper I have compared six types of crime data including Assault, Auto Theft, Break & Enter, Robbery, Theft Over, and Homicide, by 140 neighbourhoods in Toronto during 2014 to 2019. To be more exact, I also used the 2016 Census Population to demonstrate the crime rates for 2019 per 100,000 people. *#The results show that ..... is improving and ..... the .... neigbourhood is reporting the highest rate of ......#* "
+abstract: "Crime rate statistics in Toronto neighbourhoods can be interesting for anyone who is currently living or planning to move to Toronto. In this paper I have compared six types of major crime data including Assault, Auto Theft, Break & Enter, Robbery, Theft Over, and Homicide, happened in 140 neighbourhoods in Toronto during 2014 to 2019. Then I tried to introduce the top ten safest neighborhoods, however, I found this report could be prone to suffer from some systematic biases as neighborhoods are not equaly divided in terms of area and population. Nevertheless, based on  2016 Census Population, I tried to demonstrate the crime rates for 2019 per 100,000 people."
 output:
   bookdown::pdf_document2:
 toc: FALSE
@@ -39,11 +39,17 @@ here::here()
 ```
 
 # Introduction
-Getting information about the neighborhoods in Toronto has always been a top concern for a newcomer parent like me, having two curious early teenagers who prefer not to stick at home with parents, but explore the neighborhood with their pals. Tough I personally like to let them find themselves on their own feet and I should always take some provisions on background like choosing a safer environments for them to flourish. This report briefly compares the crime rates between different areas in Toronto and also check their trends to see how crime rates hvae changed during past five years in Toronto neighborhoods. 
+Information about the neighborhoods in Toronto has always been a top concern for a newcomer parent like me, having two curious early teenagers who prefer not to stay at home with parents, but explore the neighborhood with their own pals. Tough, I personally encourage them find themselves on their own feet, I should always take some provisions on the background like choosing a safer environments for them to live and flourish. Therefore, I have compared the crime rates between different areas in Toronto during 2014-2019 and also checke the trends to see how crime rates have changed during 2018-2019 in Toronto neighborhoods.
 
-Although the conclusion is prone to initiate some biases, I am just providing information to grab your attention to the fact that what numbers are saying about the different crime rates in each Toronto neighborhood. I am not concerned with the reasons behind these numbers nor am I pointing to any specific ward. Nevertheless, the different densities considering each individual neighborhood area and its population may result in different subjective conclusions. Other demographic factors may also raise this subjectivity, prejudice and partiality. In this report I will also elaborate more on selecting different types of variables which initiates biases among people, leading to the same issues when they are chosen for the machine learning practices. 
+Although the conclusions are prone to initiate some biases, I am just providing information to grab the readers' attention to the fact that what numbers are covering for the different crime rates in each Toronto neighborhood. And also how these numbers can change if you impose your own opinions subjectively In addition, different population densities may result in different conclusions as well. Other demographic factors may also raise this subjectivity, prejudice and partiality. 
 
-For this report, I used the Toronto Police Reports data from the Open Data Toronto Portal [@COT]. Further information and analyses are performed using R [@CitingR] and some related libraries including *Tidyverse* , *torontoopendata* [@OpenDT]. ggplot2 [@citingggplot2], #Latex#, ((download it in a reproducible way using the R package)) opendatatoronto (Gelfand 2020), and *boom*. This report was then compiled using *R markdown*. 
+In this report I will also elaborate more on selecting different types of variables which initiates biases among people, leading to the same issues when they are chosen for the machine learning practices. 
+
+
+
+In this report, I used R [@CitingR] and some of its libraries including *Tidyverse* , *torontoopendata* [@OpenDT]. ggplot2 [@citingggplot2], #Latex#, ((download it in a reproducible way using the R package)) opendatatoronto (Gelfand 2020), and *boom*. This report was then compiled using *R markdown*. I acknowledge that I am not concerned with the reasons behind these numbers nor am I pointing to any specific ward to name it dangerous. 
+
+
 
 
 
@@ -57,11 +63,89 @@ The last paragraph should set out the remainder of the paper.
 2. Add a link to your GitHub repo via a footnote.
 3. Check that your GitHub repo is well-organized, and add an informative README. (Hint: Comment. Your. Code.). Make sure that you’ve got at least one R script in there, in addition, to your R Markdown file.
 
-
-
-
 # Data
-Toronto 
+I used Toronto Police Reports data, taken from the Open Data Toronto Portal [@COT], to explore how crime rates vary between different neighborhoods in Toronto. among many existing reports, I chose the one which contains data for six Major Crime Indicators (MCI) for the years 2014 to 2019. This dataset is updated annually and it was last updated at Sept 18, 2020 by its publisher, Toronto Police Services. It is available in SHP, CSV, GEOJSON, GPKG formats and it can be found here in this [LINK}] (https://open.toronto.ca/dataset/neighbourhood-crime-rates/). The attributes of this dataset can be found in [^appendix 1].
+
+# Part I
+
+For the purpose of choosing a safe neighborhood, I summed up the 6 MCI average crime occurrences during 2014-2019 to consider all repoted crimes for each neighborhood. the first top 10 safest neighbourhoods and the last 5, are demonstrated in (Table1 \@ref(fig:table11)). 
+
+```{r}
+
+```
+Then I realized that, for the purpose of raising my teenagers, I should be more interested to see where assult would have happened as my kids would be more the victim of this kind of crimes than ... for example. So I gave weighted those two crimes, and found new results in (Table2 \@ref(fig:table22)). 
+
+```{r}
+
+```
+I am looking into this problem from my own perspective, however, what is included in this table for the last 5 neighborhoods, is different from what was there in the first table. 
+
+In this example you may notice how weighting has changed the results, leading to nominating the second table's last 5 neighborhoods as the most dangerous one in Toronto.
+
+I would like to draw you attention to how a subjective system of weighting may result in different clues, leading to emerging future biases. And consider that how this may happen in machine learning algorithms where experts hire some external heuristics for their algorithms to shortcut the processes of their machines and thus, to help the algorithms converge faster. This would be absolutely for their positive desired approached, however, like what happened to our results, it may generate other unforeseen biased outcomes.
+
+# Part II
+
+As many other people usually do, I just relied on the existing dataset, regardless of the area and/or the density of population for each neighborhood. Let me put it this way, does a low rate crime in a small area or very less crowded neighborhood mean that it is safer? 
+
+Let's look at the (Figure1 \@ref(fig:figure11)) to see haw the distribution of population based on 2016 Census and the sum of average reported crimes happened between 2014-2019.
+
+Let's divide the average crime rates for each neighborhood to their population and see the results change at (Table3 \@ref(fig:table33)). 
+
+
+```{r}
+
+```
+As you may notice we have got 3 different results for the safest and the most dangerous Toronto neighborhoods.
+
+Considering that these factors impacts the real estate prices in the neighborhoods, I assume that those areas which are systematically labeled as the most dangerous ones in our first table, are the victim to systematic violence which XXX explains in his article .... in This article he covers the systematic violence for the absence of some existing attributes like which we have not divided neighborhoods equally to realize where you can find most criminals among different Toronto neighborhoods.
+
+# Paer III
+
+Toronto is receiving number of immigrants each year. So, we should expect demographic changes in neighborhoods. There is also on variable in this dataset which shows the trend of crimes change between 2018 to 2019. Figure (Figure1 \@ref(fig:table11)) shows this trend for the 15 neighborhoods introduced in Table 1
+
+```{r}
+
+```
+
+If you see a sharp increase/decrease in ... it is because of lack os data.
+
+
+
+
+
+ 1. Index_:  Record Unique Identifier
+2. event_unique_id:  Event Unique Identifier
+3. occurrencedate:  Date of occurrence
+4. reporteddate:  Date occurrence was reported
+5. premisetype:  Premise where occurrence took place
+6. ucr_code:  URC Code
+7. ucr_ext:  URC Code Extension
+8. offence:  Offence related to the occurrence
+9. reportedyear:  Year occurrence was reported
+10. reportedmonth:  Month occurrence was reported
+11. reportedday:  Day occurrence was reported
+12. reporteddayofyear:  Day of year Occurrence was reported.
+13. reporteddayofweek:  Day of week occurrence was reported
+14. reportedhour:  Hour occurrence was reported
+15. occurrenceyear:  Occurrence year
+16. occurrencemonth:  Occurrence month
+17. occurrenceday:  Occurrence day
+18. occurrencedayofyear:  Occurrence day of year
+19. occurrencedayofweek:  Occurrence day of week
+20. occurrencehour:  Occurrence hour
+21. **MCI:* Major Crime Indicator related to the offence
+22. Division:  Division where event occurred
+23. Hood_ID:  Neighbourhood Name
+24. Neighborhood:  Neighborhood Identificator
+25. Long:  Longitude of point extracted after offsetting X and & Coordinates to nearest intersection node
+26. Lat:  Latitude of point extracted after offsetting X and & Coordinates to nearest intersection node
+27. ObjectId:  Id of the report
+
+
+
+
+
 
 Our data is of penguins (Figure \@ref(fig:bills)).
 
@@ -186,10 +270,73 @@ Talk way more about ittttttt.
 \newpage
 
 # Appendixxxxx {-}
-00000
 
+Apendix 1
 
-ooooo
+	Column	Description
+1. *_id*:   Unique row identifier for Open Data database
+2. *OBJECTID*:   Autogenerated distinct record identifier
+3. *Neighbourhood*:   Name of City of Toronto neighbourhood
+4. *Hood_ID*:   City of Toronto neighbourhood identifier
+5. *Population*:   2016 Census Population 
+6. *Assault_2014*:   Count of assaults for 2014
+7. *Assault_2015*:   Count of assaults for 2015
+8. *Assault_2016*:   Count of assaults for 2016
+9. *Assault_2017*:   Count of assaults for 2017
+10. *Assault_2018*:   Count of assaults for 2018
+11. *Assault_2019*:   Count of assaults for 2019
+12. *Assault_AVG*:   Average Assaults from 2014 - 2019
+13. *Assault_CHG*:   % Change in assaults from 2018-2019
+14. *Assault_Rate_2019*:   Rate of assaults for 2019 per 100,000 population
+15. *AutoTheft_2014*:   Count of auto thefts for 2014
+16. *AutoTheft_2015*:   Count of auto thefts for 2015
+17. *AutoTheft_2016*:   Count of auto thefts for 2016
+18. *AutoTheft_2017*:   Count of auto thefts for 2017
+19. *AutoTheft_2018*:   Count of auto thefts for 2018
+20. *AutoTheft_2019*:   Count of auto thefts for 2019
+21. *AutoTheft_AVG*:   Averate auto thefts from 2014-2019
+22. *AutoTheft_CHG*:   % Change in auto thefts from 2018-2019
+23. *AutoTheft_Rate_2019*:   Rate of auto thefts for 2019 per 100,000 population
+24. *BreakandEnter_2014*:   Count of break and enters for 2014
+25. *BreakandEnter_2015*:   Count of break and enters for 2015
+26. *BreakandEnter_2016*:   Count of break and enters for 2016
+27. *BreakandEnter_2017*:   Count of break and enters for 2017
+28. *BreakandEnter_2018*:   Count of break and enters for 2018
+29. *BreakandEnter_2019*:   Count of break and enters for 2019
+30. *BreakandEnter_AVG*:   Averate break and enters from 2014-2019
+31. *BreakandEnter_CHG*:   % Change in break and enters from 2018-2019
+32. *BreakandEnter_Rate_2019*:   Rate of break and enters for 2019 per 100,000 population
+33. *Homicide_2014*:   Count of homicides for 2014
+34. *Homicide_2015*:   Count of homicides for 2015
+35. *Homicide_2016*:   Count of homicides for 2016
+36. *Homicide_2017*:   Count of homicides for 2017
+37. *Homicide_2018*:   Count of homicides for 2018
+38. *Homicide_2019*:   Count of homicides for 2019
+39. *Homicide_AVG*:   Averate homicides from 2014-2019
+40. *Homicide_CHG*:   % Change in homicides from 2018-2019
+41. *Homicide_Rate_2019*:   Rate of homicides for 2019 per 100,000 population
+42. *Robbery_2014*:   Count of robberies for 2014
+43. *Robbery_2015*:   Count of robberies for 2015
+44. *Robbery_2016*:   Count of robberies for 2016
+45. *Robbery_2017*:   Count of robberies for 2017
+46. *Robbery_2018*:   Count of robberies for 2018
+47. *Robbery_2019*:   Count of robberies for 2019
+48. *Robbery_AVG*:   Averate robberies from 2014-2019
+49. *Robbery_CHG*:   % Change in robberies from 2018-2019
+50. *Robbery_Rate_2019*:   Rate of robberies for 2019 per 100,000 population
+51. *TheftOver_2014*:   Count of thefts over for 2014
+52. *TheftOver_2015*:   Count of thefts over for 2015
+53. *TheftOver_2016*:   Count of thefts over for 2016
+54. *TheftOver_2017*:   Count of thefts over for 2017
+55. *TheftOver_2018*:   Count of thefts over for 2018
+56. *TheftOver_2019*:   Count of thefts over for 2019
+57. *TheftOver_AVG*:   Averate thefts over from 2014-2019
+58. *TheftOver_CHG*:   % Change in thefts over from 2018-2019
+59. *TheftOver_Rate_2019*:   Rate of thefts over for 2019 per 100,000 population
+60. *Shape__Area*:   Autogenerated area measurement
+61. *Shape__Length*:   Autogenerated length measurement
+62. *geometry*
+
 
 \newpage
 
