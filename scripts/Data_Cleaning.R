@@ -14,7 +14,6 @@
 
 
 #### Work-space setup ####
-
 # install.packages("opendatatoronto")
 # install.packages("tidyverse")
 #install.packages("here")
@@ -27,23 +26,21 @@ library(opendatatoronto)
 library(tidyverse)
 here::here()
 
-#### Get data ####
 
+
+#### Get data ####
 # get package
 package <- show_package("fc4d95a6-591f-411f-af17-327e6c5d03c7")
-#package
 
 # get all resources for this package
 resources <- list_package_resources("fc4d95a6-591f-411f-af17-327e6c5d03c7")
-#resources
 
 # identify datastore resources; by default, Toronto Open Data sets datastore resource format to CSV for non-geospatial and GeoJSON for geospatial resources
 datastore_resources <- filter(resources, tolower(format) %in% c('csv', 'geojson'))
-#datastore_resources
 
 # load the first datastore resource as a sample
 datastore <- filter(datastore_resources, row_number()==1) %>% get_resource() #*** Cite the code
-#datastore
+
 
 
 #### Save Data ####
@@ -57,9 +54,12 @@ raw_data <-
   )
 
 
+
 #### Exploring data ####
 # Exploring the existing attribute names.
 names(raw_data)
+
+
 
 #### Collecting the environmental data ####
 # Keeping the environmental variables (Population, Area, and Shape/Length for each neighborhood)
@@ -71,6 +71,8 @@ env_data <-
          Shape__Length)
 # writing it to a .csv file
 write_csv(env_data,"inputs/data/Env-data.csv")
+
+
 
 #### Creating total average crimes for each neighborhood ####
 # choosing average crimes (e.g. Assault_AVG, ...) for each neighborhood
@@ -101,6 +103,7 @@ all_crimes_AVGs <-
   all_crimes_AVGs[order(total_AVG_crimes),] 
 # writing it as a .csv file
 write_csv(all_crimes_AVGs,"inputs/data/Crime-AVGs.csv")
+
 
 
 #### Creating total weighted average crimes for each neighborhood ####
@@ -134,6 +137,7 @@ all_crimes_AVGs_w <-
 write_csv(all_crimes_AVGs_w,"inputs/data/Crime-wAVGs.csv")
 
 
+
 #### % of crime changed from 2018-2019 for each neighborhood ####
 raw_data_CHG <-
   raw_data %>%           
@@ -147,6 +151,8 @@ raw_data_CHG <-
   )
 # writing it as a .csv file
 write_csv(raw_data_CHG,"inputs/data/Crime-Chg-18-19.csv")
+
+
 
 #### Rate of all crimes for 2019 per 100,000 population in each neighborhood ####
 rate_2019 <-
@@ -177,7 +183,11 @@ all_crimes_Rate2019 <-
 # writing it as a .csv file
 write_csv(all_crimes_Rate2019,"inputs/data/Crime-rate-19.csv")
 
+
+
 #### removing the raw_data file to free up RAM and better scalability ####
 rm(raw_data)
+
+
 
 #################################### EOF ####################################
