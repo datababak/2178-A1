@@ -13,7 +13,7 @@
 
 
 
-#### Workspace setup ####
+#### Work-space setup ####
 
 # install.packages("opendatatoronto")
 # install.packages("tidyverse")
@@ -180,4 +180,4 @@ write_csv(all_crimes_Rate2019,"inputs/data/Crime-rate-19.csv")
 #### removing the raw_data file to free up RAM and better scalability ####
 rm(raw_data)
 
-################ EOF ################
+#################################### EOF ####################################
