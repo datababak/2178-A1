@@ -4,7 +4,7 @@ subtitle: "Based on police reports for six major crimes"
 author: "Babak Mokri"
 thanks: "Code and data are available at: https://github.com/datababak/2178-A1"
 date: "`r format(Sys.time(), '%d %B %Y')`"
-abstract: "Crime rate statistics in Toronto neighbourhoods can be interesting for anyone who is currently living or planning to move to Toronto. In this paper I have compared six types of major crime data including Assault, Auto Theft, Break & Enter, Robbery, Theft Over, and Homicide, happened in 140 neighbourhoods in Toronto during 2014 to 2019. Then I tried to introduce the top ten safest neighborhoods, however, I found this report could be prone to suffer from some systematic biases as neighborhoods are not equaly divided in terms of area and population. Nevertheless, based on  2016 Census Population, I tried to demonstrate the crime rates for 2019 per 100,000 people."
+abstract: "Crime rate statistics in Toronto neighbourhoods can be interesting for current residence of it as well as for those who are planning to move to Toronto. In this paper I have compared six types of major crimes including Assault, Auto Theft, Break & Enter, Robbery, Theft Over, and Homicide, happened in 140 neighbourhoods in Toronto during 2014 to 2019. Firstly, I tried to list top ten and last five safest Toronto neighborhoods, however, it became so controversial as I looked into that from 3 various perspectives. Then, I made an analogy of this contradictions to the biased results from AI algorithm, and finally, how safe neighborhoods can be victimized to the existing systematic violence."
 output:
   bookdown::pdf_document2:
 toc: FALSE
@@ -24,6 +24,7 @@ knitr::opts_chunk$set(echo = TRUE)
 #install.packages("kableExtra")
 #install.packages("palmerpenguins")
 
+
 library(tidyverse)
 library(ggplot2)
 library(here)
@@ -33,248 +34,166 @@ library(ggmap)
 library(kableExtra)
 library(DT)
 library(palmerpenguins)
-
+library(bookdown)
+library(tidyr)
 here::here()
 
 ```
 
 # Introduction
-Information about the neighborhoods in Toronto has always been a top concern for a newcomer parent like me, having two curious early teenagers who prefer not to stay at home with parents, but explore the neighborhood with their own pals. Tough, I personally encourage them find themselves on their own feet, I should always take some provisions on the background like choosing a safer environments for them to live and flourish. Therefore, I have compared the crime rates between different areas in Toronto during 2014-2019 and also checke the trends to see how crime rates have changed during 2018-2019 in Toronto neighborhoods.
 
-Although the conclusions are prone to initiate some biases, I am just providing information to grab the readers' attention to the fact that what numbers are covering for the different crime rates in each Toronto neighborhood. And also how these numbers can change if you impose your own opinions subjectively In addition, different population densities may result in different conclusions as well. Other demographic factors may also raise this subjectivity, prejudice and partiality. 
+Choosing a safe neighborhood in Toronto has always been a top concern for a newcomer parent like me, especially when dealing with two curious and challenging early teenagers who prefer not to stay at home with parents but explore the whole neighborhood with their own pals. Tough, I personally encourage them find themselves on their own feet, I should always take some provisions on the background like choosing a safer environment for them to live and flourish. To choose a safe neighborhood, I have compared the crime rates for different areas in Toronto during 2014-2019.
+
+Although the conclusions are prone to initiate some biases, I am just providing information to grab the readers' attention to the fact that what numbers are covering for the different crime rates in each Toronto neighborhood. And also, how these numbers can change the results if you impose your own subjective opinions. In addition, different population densities may result in different conclusions as well. Other demographic factors may also raise this subjectivity, prejudice and partiality. 
 
 In this report I will also elaborate more on selecting different types of variables which initiates biases among people, leading to the same issues when they are chosen for the machine learning practices. 
 
+For coding, analysis and data visualization, I used R [@citingR] programing language, and some of its libraries including tidyverse [@tidy], opendatatoronto [@ODT], ggplot2[@ggp], and bookdown[@bookd]. This report was then compiled using R markdown[@Rmd]. I acknowledge that I am not concerned with the reasons behind these numbers nor am I pointing to any specific ward to name it dangerous. 
 
-
-In this report, I used R [@CitingR] and some of its libraries including *Tidyverse* , *torontoopendata* [@OpenDT]. ggplot2 [@citingggplot2], #Latex#, ((download it in a reproducible way using the R package)) opendatatoronto (Gelfand 2020), and *boom*. This report was then compiled using *R markdown*. I acknowledge that I am not concerned with the reasons behind these numbers nor am I pointing to any specific ward to name it dangerous. 
-
-
-
+I start to download the required dataset, make some quantitative analysis from different viewpoints, and finally make some analogies between human rationale and what may happen in AI algorithms as well as unanticipated issues with categorizations in a dataset.
 
 
 
-
-
-The last paragraph should set out the remainder of the paper.
-
-# Babak
-1. Add an abstract. This should be three or four sentences. And then add a descriptive title (Hint: ‘Paper 1’ is not descriptive.)
-2. Add a link to your GitHub repo via a footnote.
-3. Check that your GitHub repo is well-organized, and add an informative README. (Hint: Comment. Your. Code.). Make sure that you’ve got at least one R script in there, in addition, to your R Markdown file.
 
 # Data
-I used Toronto Police Reports data, taken from the Open Data Toronto Portal [@COT], to explore how crime rates vary between different neighborhoods in Toronto. among many existing reports, I chose the one which contains data for six Major Crime Indicators (MCI) for the years 2014 to 2019. This dataset is updated annually and it was last updated at Sept 18, 2020 by its publisher, Toronto Police Services. It is available in SHP, CSV, GEOJSON, GPKG formats and it can be found here in this [LINK}] (https://open.toronto.ca/dataset/neighbourhood-crime-rates/). The attributes of this dataset can be found in [^appendix 1].
 
-# Part I
+I used Toronto Police Reports data, taken from the Open Data Toronto Portal [@COT], to explore how crime rates vary between different neighborhoods in Toronto. Among many existing datasets, I chose the one which contains data for six Major Crime Indicators (MCI) including Assault, Auto Theft, Break & Enter, Robbery, Theft Over, and Homicide occurred between the years 2014 to 2019. This dataset is updated annually, and the last update was at Sept 18, 2020 by its publisher, Toronto Police Services. This dataset is available in SHP, CSV, GEOJSON, GPKG formats and it can be found in this [LINK](https://open.toronto.ca/dataset/neighbourhood-crime-rates/). 
 
-For the purpose of choosing a safe neighborhood, I summed up the 6 MCI average crime occurrences during 2014-2019 to consider all repoted crimes for each neighborhood. the first top 10 safest neighbourhoods and the last 5, are demonstrated in (Table1 \@ref(fig:table11)). 
-
-```{r}
-
-```
-Then I realized that, for the purpose of raising my teenagers, I should be more interested to see where assult would have happened as my kids would be more the victim of this kind of crimes than ... for example. So I gave weighted those two crimes, and found new results in (Table2 \@ref(fig:table22)). 
-
-```{r}
-
-```
-I am looking into this problem from my own perspective, however, what is included in this table for the last 5 neighborhoods, is different from what was there in the first table. 
-
-In this example you may notice how weighting has changed the results, leading to nominating the second table's last 5 neighborhoods as the most dangerous one in Toronto.
-
-I would like to draw you attention to how a subjective system of weighting may result in different clues, leading to emerging future biases. And consider that how this may happen in machine learning algorithms where experts hire some external heuristics for their algorithms to shortcut the processes of their machines and thus, to help the algorithms converge faster. This would be absolutely for their positive desired approached, however, like what happened to our results, it may generate other unforeseen biased outcomes.
-
-# Part II
-
-As many other people usually do, I just relied on the existing dataset, regardless of the area and/or the density of population for each neighborhood. Let me put it this way, does a low rate crime in a small area or very less crowded neighborhood mean that it is safer? 
-
-Let's look at the (Figure1 \@ref(fig:figure11)) to see haw the distribution of population based on 2016 Census and the sum of average reported crimes happened between 2014-2019.
-
-Let's divide the average crime rates for each neighborhood to their population and see the results change at (Table3 \@ref(fig:table33)). 
-
-
-```{r}
-
-```
-As you may notice we have got 3 different results for the safest and the most dangerous Toronto neighborhoods.
-
-Considering that these factors impacts the real estate prices in the neighborhoods, I assume that those areas which are systematically labeled as the most dangerous ones in our first table, are the victim to systematic violence which XXX explains in his article .... in This article he covers the systematic violence for the absence of some existing attributes like which we have not divided neighborhoods equally to realize where you can find most criminals among different Toronto neighborhoods.
-
-# Paer III
-
-Toronto is receiving number of immigrants each year. So, we should expect demographic changes in neighborhoods. There is also on variable in this dataset which shows the trend of crimes change between 2018 to 2019. Figure (Figure1 \@ref(fig:table11)) shows this trend for the 15 neighborhoods introduced in Table 1
-
-```{r}
-
-```
-
-If you see a sharp increase/decrease in ... it is because of lack os data.
+In this dataset, there are 62 attributes in separate columns, providing data for 140 Toronto neighborhoods in distinct rows. The list of attributes for this dataset is appended to this report.
 
 
 
 
+## Part I
 
- 1. Index_:  Record Unique Identifier
-2. event_unique_id:  Event Unique Identifier
-3. occurrencedate:  Date of occurrence
-4. reporteddate:  Date occurrence was reported
-5. premisetype:  Premise where occurrence took place
-6. ucr_code:  URC Code
-7. ucr_ext:  URC Code Extension
-8. offence:  Offence related to the occurrence
-9. reportedyear:  Year occurrence was reported
-10. reportedmonth:  Month occurrence was reported
-11. reportedday:  Day occurrence was reported
-12. reporteddayofyear:  Day of year Occurrence was reported.
-13. reporteddayofweek:  Day of week occurrence was reported
-14. reportedhour:  Hour occurrence was reported
-15. occurrenceyear:  Occurrence year
-16. occurrencemonth:  Occurrence month
-17. occurrenceday:  Occurrence day
-18. occurrencedayofyear:  Occurrence day of year
-19. occurrencedayofweek:  Occurrence day of week
-20. occurrencehour:  Occurrence hour
-21. **MCI:* Major Crime Indicator related to the offence
-22. Division:  Division where event occurred
-23. Hood_ID:  Neighbourhood Name
-24. Neighborhood:  Neighborhood Identificator
-25. Long:  Longitude of point extracted after offsetting X and & Coordinates to nearest intersection node
-26. Lat:  Latitude of point extracted after offsetting X and & Coordinates to nearest intersection node
-27. ObjectId:  Id of the report
+For the purpose of choosing a safe neighborhood for my residence, I considered all reported crimes for each neighborhood, for which I summed up the 6 MCI averages, occurred during 2014-2019. 
+
+(Table1 \@ref(tab:table11)) shows the first top 10 and the last 5 safest neighborhoods in Toronto.
 
 
 
 
+```{r table11, echo = FALSE, message=FALSE}
+# Reading data from the .csv file (created at Data_Cleaning.R)
+dt1 <- readr::read_csv(here("inputs/data/Crime-AVGs.csv"))
 
+# Keeping the first 10 and the last 5 records
+dt1 <- dt1[-c(11:135),]
 
-Our data is of penguins (Figure \@ref(fig:bills)).
+#knitr::kable(dt1, caption = "top 10 & last 5 safest neighborhoods")
 
-AND WE ARE USING RRRRR
-
-SO CITING R [@CitingR, page(10)]
-
-SO CITING R [@citingggplot2, page(11)]
-
-```{r table1}
-library(kableExtra)
-
-dt <- readr::read_csv(here("inputs/data/a3.csv"))
-dt <- dt[-c(11:135),]
-
-kbl(dt) %>%
+tb1 <- kbl(dt1) %>%
   kable_paper("striped", full_width = F) %>%
   column_spec(1:2 , bold = T) %>%
   row_spec(11:15, bold = T, color = "white", background = "#D7261E")
 
+tb1
 ```
 
 
 
 
+Then I realized that, crimes like Auto-theft, Break & Enter, and Theft Over are less likely to happen to a teenager compared to Homicide, Robbery and Assault for which my kids would be more vulnerable. So, I decided to give some weights to the 3 latter crimes to make the results more accurate for my case. Based on my own reasoning, I gave 5 weights to Homicide (as this was scarier to the parents as well), 2 to Robbery and Assault, and 3 to Assault (to which kids are very sensitive and usually victimized).
+(Table \@ref(fig:table22)) shows the new results after my modifications.
 
 
 
 
+```{r table22, echo = FALSE, message=FALSE}
+# Reading data from the .csv file (created at Data_Cleaning.R)
+dt2 <- readr::read_csv(here("inputs/data/Crime-wAVGs.csv"))
 
-``` {r graph1}
+# Keeping the first 10 and the last 5 records
+dt2 <- dt2[-c(11:135),]
 
-nbr <- dt$raw_data_AVG.Neighbourhood
-avg_crm <- dt$total_AVG_crimes
+#knitr::kable(dt, caption = "top 10 & last 5 safest neighborhoods")
 
-ggplot(data = dt, aes(x = avg_crm, y = nbr)) + 
-  geom_bar(stat = 'identity') +
-  xlab("Average crimes between 2014 to 2019") +
-  ylab("first 5 and last 5 neighbourhoods") + 
-  ggtitle("First 5 and last 5 Neighborhoods")
-
-#plot1
-
-```
-
-
-```{r table2}
-library(kableExtra)
-kbl(dt) %>%
+tb2 <- kbl(dt2) %>%
   kable_paper("striped", full_width = F) %>%
   column_spec(1:2 , bold = T) %>%
-  row_spec(6:10, bold = T, color = "white", background = "#D7261E")
+  row_spec(11:15, bold = T, color = "white", background = "#D7261E")
 
+tb2
 ```
 
 
 
 
-### Others
+Having said that I am organizing these neighborhoods for my own study, and probably would recommend it to other parents, you may notice how a subjective weighting system could label some other safe areas as a *not safe* area. This tag may then become a viral term for that neighborhood and hence, initiate an unfavorable prejudice among people. 
 
-
-
-```{r bills, fig.cap="Bills of penguinshh", echo = FALSE}
-
-
+Further to the safety, there are other factors such as affordability, school ranks, and the proximity to my relatives which impact my decision making. So, calling the safety factor as my first concern, I would like to have the first 20 safest neighborhoods in a graph as shown in (Figure \@ref(fig:figure11)), and apply the other factors to each subsequent candidate neighborhoods consequently.
 
 
 
 
 
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = FALSE) +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
+``` {r figure11, fig.cap="The top 20 safest Toronto neighborhoods", echo = FALSE, message=FALSE}
+dt3 <- readr::read_csv(here("inputs/data/Crime-wAVGs.csv"))
+dt3 <- dt3[c(1:20),]
+nbr <- dt3$Neighborhood
+avg_crm <- dt3$Average_Crimes_w
+
+dt3 <- dt3 %>%
+  mutate(nbr = fct_reorder(nbr, -avg_crm)) # order by average crime
+
+ggplot(data = dt3, aes(x = avg_crm, y = nbr)) + 
+  geom_bar(stat = 'identity') +
+  xlab("Average crimes between 2014 to 2019") +
+  ylab("Average crime rates (weighted)") + 
+  ggtitle("Average crime rates (weighted) between 2014-2019")
+
+#plot1
 ```
+
+The above graph provides a visual information representation for the different safety levels at a glance, for which in the first two tables, I had to calculate them manually.
+
+In this story, I would like to draw your attention to how subjectivity it may lead to emerging future biases. This is not much far from what may happen in Machine Learning algorithms. For example, in ML algorithms where experts may hire some external heuristic algorithms to reduce the "worthless" CPU energy consumption, improve productivity, and help the machine algorithms to converge faster, they may accidentally contribute to generating unforeseen biased outcomes, like how our outcomes tagged some neighborhoods as more dangerous ones. As Karen Hao claims "The introduction of bias isn’t always obvious during a model’s construction because you may not realize the downstream impacts of your data and choices until much later. Once you do, it’s hard to retroactively identify where that bias came from and then figure out how to get rid of it" [@Hao]. Likewise, I agree the experts' intention, in our example, was positively tuning the results for their own objectives, however, their producing unwilling biases at the background may remain hidden for years (or forever) as "unknown-unknowns" [@Hao] leading to controversial results and antagonistic disputes.
+
+
+## Part II
+
+Like other users, I just relied on the existing data, which is generated by a valid source (Toronto Police Services), and it is announcing the crime rates for each neighborhood, regardless of the density of population and/or the size of each individual area. Let me put it in this way; Does a low-rate crime in a small area or very less crowded neighborhood mean that it is safe?
+
+Fortunately, this dataset has provided one column indicating the rate of 6 above-mentioned MCIs for 2019 per 100,000 population. (Table \@ref(tab:table33)) shows the top 10 and last 5 safest Toronto neighborhoods considering the population in each district. 
+
+```{r table33, echo = FALSE, message=FALSE}
+
+# Reading data from the .csv file (created at Data_Cleaning.R)
+dt3 <- readr::read_csv(here("inputs/data/Crime-rate-19.csv"))
+
+# Keeping the first 10 and the last 5 records
+dt3 <- dt3[-c(11:135),]
+
+tb3 <- kbl(dt3) %>%
+  kable_paper("striped", full_width = F) %>%
+  column_spec(1:2 , bold = T) %>%
+  row_spec(11:15, bold = T, color = "white", background = "#D7261E")
+
+tb3
+```
+
+let's look into the results. (Table \@ref(tab:table44)) compares Table 1 and Table 3 side by side; And you may notice, a complete change in the results.
+
+```{r table44,echo = FALSE, message=FALSE}
+
+# Code adapted from https://stackoverflow.com/a/49044933
+kable(cbind(dt1,dt3), format="latex", booktabs=TRUE) %>% 
+  kable_styling(latex_options="scale_down")
+
+```
+Considering that safe/dangerous labels directly impact the real estate prices in each neighborhood, in my opinion, for areas which are systematically labeled as the most dangerous ones in our first table, I claim they are the victim to systematic violence which XXX explains in his article .... in This article he covers the systematic violence for the absence of some existing attributes like which we have not divided neighborhoods equally to realize where you can find most criminals among different Toronto neighborhoods.
+
+
 
 \newpage
 
-Talk more about itjjjjjjjjj.
-
-Also bills and their average (Figure \@ref(fig:billssssss)). (Notice how you can change the height and width so they don't take the whole page?)
-
-```{r billssssss, fig.cap="More bills of penguins", echo = FALSE, fig.width=8, fig.height=4}
-
-# This needs to be about the random data that I sasmpled?
-ggplot(penguins, aes(x = island, fill = species)) +
-  geom_bar(alpha = 0.8) +
-  scale_fill_manual(values = c("darkorange","purple","cyan4"),
-                    guide = FALSE) +
-  theme_minimal() +
-  facet_wrap(~species, ncol = 1) +
-  coord_flip()
-```
-
-
-
-
-
-
-
-
-Talk way more about ittttttt. 
-
-
-
-
-
-
-
-
-
-Talk way more about ittttttt. 
-
-
-
-
-
-
-\newpage
-
-# Appendixxxxx {-}
+# Appendix {-}
 
 Apendix 1
+List of attributes of the main dataset  (https://open.toronto.ca/dataset/neighbourhood-crime-rates/).
 
-	Column	Description
-1. *_id*:   Unique row identifier for Open Data database
+
+1. *id*:   Unique row identifier for Open Data database
 2. *OBJECTID*:   Autogenerated distinct record identifier
 3. *Neighbourhood*:   Name of City of Toronto neighbourhood
 4. *Hood_ID*:   City of Toronto neighbourhood identifier
