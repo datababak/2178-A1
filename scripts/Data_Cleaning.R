@@ -57,26 +57,20 @@ raw_data <-
   )
 
 
-################ Checking data ##################
-
+#### Exploring data ####
 # Exploring the existing attribute names.
 names(raw_data)
 
-# deleting excess columns to reduce the csv file size
-
-
-
-
-
-
-
-### reducing data to check environmental factors (Population, Area, and Shape/Length for each neighborhood
+#### Collecting the environmental data ####
+# Keeping the environmental variables (Population, Area, and Shape/Length for each neighborhood)
 env_data <- 
   raw_data %>%             
   select(Neighbourhood, 
          Population,
          Shape__Area,
          Shape__Length)
+# writing it to a .csv file
+write_csv(env_data,"inputs/data/Env-data.csv")
 
 #### Creating total average crimes for each neighborhood ####
 # choosing average crimes (e.g. Assault_AVG, ...) for each neighborhood
@@ -105,6 +99,9 @@ all_crimes_AVGs <-
 # Sorting the result
 all_crimes_AVGs <- 
   all_crimes_AVGs[order(total_AVG_crimes),] 
+# writing it as a .csv file
+write_csv(all_crimes_AVGs,"inputs/data/Crime-AVGs.csv")
+
 
 #### Creating total weighted average crimes for each neighborhood ####
 # choosing average crimes (e.g. Assault_AVG, ...) for each neighborhood
@@ -133,6 +130,9 @@ all_crimes_AVGs_w <-
 # Sorting the result
 all_crimes_AVGs_w <- 
   all_crimes_AVGs_w[order(total_AVG_crimes_w),] 
+# writing it as a .csv file
+write_csv(all_crimes_AVGs_w,"inputs/data/Crime-wAVGs.csv")
+
 
 #### % of crime changed from 2018-2019 for each neighborhood ####
 raw_data_CHG <-
@@ -145,6 +145,8 @@ raw_data_CHG <-
          Robbery_CHG,
          TheftOver_CHG
   )
+# writing it as a .csv file
+write_csv(raw_data_CHG,"inputs/data/Crime-Chg-18-19.csv")
 
 #### Rate of all crimes for 2019 per 100,000 population in each neighborhood ####
 rate_2019 <-
@@ -172,8 +174,8 @@ all_crimes_Rate2019 <-
 # Sorting the result
 all_crimes_Rate2019 <- 
   all_crimes_Rate2019[order(total_Rate2019),] 
-# writing this data frame as a .csv file
-write_csv(all_crimes_AVGs,"inputs/data/a3.csv")
+# writing it as a .csv file
+write_csv(all_crimes_Rate2019,"inputs/data/Crime-rate-19.csv")
 
 #### removing the raw_data file to free up RAM and better scalability ####
 rm(raw_data)
