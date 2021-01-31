@@ -46,12 +46,12 @@ datastore <- filter(datastore_resources, row_number()==1) %>% get_resource() #**
 #datastore
 
 
-#### Save Data ####                                            *************
+#### Save Data ####
 write_csv(datastore, "inputs/data/raw_data.csv")
 
 
 
-# Read in the raw data.     *** Doesn't work
+#### Read in the raw data ####
 raw_data <- 
   readr::read_csv("inputs/data/raw_data.csv"
   )
@@ -62,6 +62,14 @@ raw_data <-
 # Exploring the existing attribute names.
 names(raw_data)
 
+# deleting excess columns to reduce the csv file size
+
+
+
+
+
+
+
 ### reducing data to check environmental factors (Population, Area, and Shape/Length for each neighborhood
 env_data <- 
   raw_data %>%             
@@ -70,7 +78,8 @@ env_data <-
          Shape__Area,
          Shape__Length)
 
-#### choosing average crimes (e.g. Assault_AVG, ...) for each neighborhood
+#### Creating total average crimes for each neighborhood ####
+# choosing average crimes (e.g. Assault_AVG, ...) for each neighborhood
 raw_data_AVG <-
   raw_data %>%           
   select(Neighbourhood,
@@ -97,7 +106,35 @@ all_crimes_AVGs <-
 all_crimes_AVGs <- 
   all_crimes_AVGs[order(total_AVG_crimes),] 
 
-#### Cheking % Change in each crime from 2018-2019 for each neighborhood
+#### Creating total weighted average crimes for each neighborhood ####
+# choosing average crimes (e.g. Assault_AVG, ...) for each neighborhood
+raw_data_AVG_w <-
+  raw_data %>%           
+  select(Neighbourhood,
+         Assault_AVG,
+         AutoTheft_AVG,
+         BreakandEnter_AVG,
+         Homicide_AVG,
+         Robbery_AVG,
+         TheftOver_AVG
+  )
+# creating a new vector and summing up all average crimes for each neighborhood
+total_AVG_crimes_w <- c(
+  (3 * raw_data_AVG$Assault_AVG) + 
+    raw_data_AVG$AutoTheft_AVG + 
+    raw_data_AVG$BreakandEnter_AVG + 
+    (5 * raw_data_AVG$Homicide_AVG) + 
+    (2 * raw_data_AVG$Robbery_AVG) + 
+    raw_data_AVG$TheftOver_AVG 
+)
+# creating a new data frame to show total average crimes for each neighborhood
+all_crimes_AVGs_w <-
+  data.frame(raw_data_AVG$Neighbourhood, total_AVG_crimes_w)
+# Sorting the result
+all_crimes_AVGs_w <- 
+  all_crimes_AVGs_w[order(total_AVG_crimes_w),] 
+
+#### % of crime changed from 2018-2019 for each neighborhood ####
 raw_data_CHG <-
   raw_data %>%           
   select(Neighbourhood,
@@ -109,7 +146,7 @@ raw_data_CHG <-
          TheftOver_CHG
   )
 
-#### Checking the rate of crimes for 2019 per 100,000 population in each neighborhood
+#### Rate of all crimes for 2019 per 100,000 population in each neighborhood ####
 rate_2019 <-
   raw_data %>%           
   select(Neighbourhood,
@@ -128,18 +165,17 @@ total_Rate2019 <- c(
     rate_2019$Homicide_Rate_2019 + 
     rate_2019$Robbery_Rate_2019 + 
     rate_2019$TheftOver_Rate_2019
-)
+  )
 # creating a new data frame to show total 2019 crimes rate per 100,000 population in each neighborhood
 all_crimes_Rate2019 <-
   data.frame(rate_2019$Neighbourhood, total_Rate2019)
-
 # Sorting the result
 all_crimes_Rate2019 <- 
   all_crimes_Rate2019[order(total_Rate2019),] 
-
+# writing this data frame as a .csv file
 write_csv(all_crimes_AVGs,"inputs/data/a3.csv")
 
-
+#### removing the raw_data file to free up RAM and better scalability ####
 rm(raw_data)
 
-###### EOF
+################ EOF ################
