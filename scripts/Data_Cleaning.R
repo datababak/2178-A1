@@ -61,10 +61,7 @@ names(raw_data)
 
 
 
-<<<<<<< HEAD
 
-=======
->>>>>>> f8cf65e12f4f491173e6f7bc92ceccc74dc36727
 #### Collecting the environmental data ####
 # Keeping the environmental variables (Population, Area, and Shape/Length for each neighborhood)
 env_data <- 
