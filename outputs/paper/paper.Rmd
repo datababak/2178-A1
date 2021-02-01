@@ -181,7 +181,7 @@ kable(cbind(dt1,dt3), format="latex", booktabs=TRUE) %>%
   kable_styling(latex_options="scale_down")
 
 ```
-Considering that safe/dangerous labels directly impact the real estate prices in each neighborhood, in my opinion, for areas which are systematically labeled as the most dangerous ones in our first table, I claim they are the victim to systematic violence which XXX explains in his article .... in This article he covers the systematic violence for the absence of some existing attributes like which we have not divided neighborhoods equally to realize where you can find most criminals among different Toronto neighborhoods.
+Considering that safe/dangerous labels directly impact the real estate prices in each neighborhood, in my opinion, for areas which are systematically labeled as the most dangerous ones in our first table, I claim they are victimized to systematic violence which Os Keyes explains in his article "Counting the Countless" [@Os]. in This article he covers the systematic violence for the absence of some existing attributes like which we have not divided neighborhoods equally to realize where you can find most criminals among different Toronto neighborhoods.
 
 
 

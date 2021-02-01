@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.1.30)  31 JAN 2021 23:23
+This is pdfTeX, Version 3.14159265-2.6-1.40.21 (TeX Live 2020) (preloaded format=pdflatex 2021.1.30)  31 JAN 2021 23:52
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -631,7 +631,7 @@ LaTeX Font Info:    External font `lmex10' loaded for size
 LaTeX Warning: Reference `fig:table22' on page 2 undefined on input line 195.
 
 [2]
-<paper_files/figure-latex/figure11-1.pdf, id=57, 469.755pt x 325.215pt>
+<paper_files/figure-latex/figure11-1.pdf, id=53, 469.755pt x 325.215pt>
 File: paper_files/figure-latex/figure11-1.pdf Graphic file (type pdf)
 <use paper_files/figure-latex/figure11-1.pdf>
 Package pdftex.def Info: paper_files/figure-latex/figure11-1.pdf  used on input
@@ -649,11 +649,8 @@ l.295
 
 LaTeX Warning: Reference `tab:table44' on page 5 undefined on input line 296.
 
-
-LaTeX Warning: Reference `fig:table11' on page 5 undefined on input line 331.
-
 [5] [6] [7]
-Underfull \hbox (badness 10000) in paragraph at lines 484--486
+Underfull \hbox (badness 10000) in paragraph at lines 477--479
 \T1/lmr/m/n/10 / / www . technologyreview . com / 2019 / 02 / 04 / 137602 / thi
 s -[] is -[] how -[] ai -[] bias -[] really -[] happensand -[] why -[] its -[] 
 so -[]
@@ -664,13 +661,13 @@ so -[]
 LaTeX Warning: There were undefined references.
 
 Package rerunfilecheck Info: File `paper.out' has not changed.
-(rerunfilecheck)             Checksum: EC2C83D17370788D2174FED6ED586A3F;629.
+(rerunfilecheck)             Checksum: FFF58357ADABD79B87C7AC15E695DE50;529.
  ) 
 Here is how much of TeX's memory you used:
- 12551 strings out of 481252
- 179526 string characters out of 5914560
- 491629 words of memory out of 5000000
- 29144 multiletter control sequences out of 15000+600000
+ 12546 strings out of 481252
+ 179456 string characters out of 5914560
+ 491591 words of memory out of 5000000
+ 29140 multiletter control sequences out of 15000+600000
  469833 words of font info for 78 fonts, out of 8000000 for 9000
  14 hyphenation exceptions out of 8191
  71i,10n,74p,1192b,417s stack positions out of 5000i,500n,10000p,200000b,80000s
@@ -686,10 +683,10 @@ abakmokri/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr6.pfb></Users/bab
 akmokri/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr8.pfb></Users/babak
 mokri/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmr9.pfb></Users/babakmo
 kri/Library/TinyTeX/texmf-dist/fonts/type1/public/lm/lmri10.pfb>
-Output written on paper.pdf (8 pages, 272862 bytes).
+Output written on paper.pdf (8 pages, 272364 bytes).
 PDF statistics:
- 240 PDF objects out of 1000 (max. 8388607)
- 215 compressed objects within 3 object streams
- 95 named destinations out of 1000 (max. 500000)
- 62 words of extra memory for PDF output out of 10000 (max. 10000000)
+ 237 PDF objects out of 1000 (max. 8388607)
+ 212 compressed objects within 3 object streams
+ 94 named destinations out of 1000 (max. 500000)
+ 54 words of extra memory for PDF output out of 10000 (max. 10000000)
 
